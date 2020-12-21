@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    restart: always
+    networks:
+      - app-network
+
+  database:
+    image: 'mongo'
+    container_name: 'users-database'
+    environment:
+      - MONGO_INITDB_DATABASE=users-database
+      - MONGO_INITDB_ROOT_USERNAME=Admin
+      - MONGO_INITDB_ROOT_PASSWORD=uyev7F9X&eldj(fj9L83_4hfeH
+    volumes:
+      - ./mongo-volume:/data/db
+    ports:
+      - 27017:27017
+    restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
